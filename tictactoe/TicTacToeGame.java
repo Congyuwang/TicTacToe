@@ -1,5 +1,8 @@
 package tictactoe;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -21,6 +24,12 @@ class TicTacToeGame implements Game {
      * This is the main interface: just play!
      */
     public void play() {
+        try {
+            String title = Files.readString(Paths.get("tictactoe/title.txt"));
+            System.out.println(title);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         FieldState fieldState;
         int round = 0;
         do {
