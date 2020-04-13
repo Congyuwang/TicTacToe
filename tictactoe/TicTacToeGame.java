@@ -34,7 +34,7 @@ class TicTacToeGame implements Game {
             round++;
         } while (fieldState == FieldState.UNFINISHED);
         System.out.print(field);
-        System.out.print(fieldState);
+        System.out.println(fieldState);
         scanner.close();
     }
 
