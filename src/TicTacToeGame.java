@@ -25,7 +25,7 @@ class TicTacToeGame implements Game {
      */
     public void play() {
         try {
-            String title = Files.readString(Paths.get("tictactoe/title"));
+            String title = Files.readString(Paths.get("../resource/title"));
             System.out.println(title);
         } catch (IOException e) {
             e.printStackTrace();
@@ -46,10 +46,10 @@ class TicTacToeGame implements Game {
         String salute = "";
         switch (fieldState) {
             case X_WINS:
-                salute = "tictactoe/x_wins";
+                salute = "../resource/x_wins";
                 break;
             case O_WINS:
-                salute = "tictactoe/o_wins";
+                salute = "../resource/o_wins";
                 break;
             default:
                 break;
