@@ -7,6 +7,7 @@ import java.util.Scanner;
 class TicTacToeGame implements Game {
 
     private Field field;
+    private Scanner scanner = new Scanner(System.in);
 
     /**
      * Initialize the game.
@@ -34,13 +35,13 @@ class TicTacToeGame implements Game {
         } while (fieldState == FieldState.UNFINISHED);
         System.out.print(field);
         System.out.print(fieldState);
+        scanner.close();
     }
 
     /**
      * receive input and update the field to {@code State s}.
      */
     private void receiveInput(State s) {
-        Scanner scanner = new Scanner(System.in);
         while (true) {
             int x;
             int y;
@@ -73,6 +74,5 @@ class TicTacToeGame implements Game {
                 System.out.printf("Coordinates should be from 1 to %d!\n", field.getFieldSize());
             }
         }
-        scanner.close();
     }
 }
