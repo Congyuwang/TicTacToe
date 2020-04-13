@@ -51,6 +51,7 @@ class TicTacToeGame implements Game {
                 try {
                     x = scanInts.nextInt();
                     y = scanInts.nextInt();
+                    scanInts.close();
                     break;
                 } catch (InputMismatchException e1) {
                     System.out.println("You should enter numbers!");
