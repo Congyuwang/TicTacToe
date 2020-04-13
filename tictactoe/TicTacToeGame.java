@@ -51,6 +51,9 @@ class TicTacToeGame implements Game {
             case O_WINS:
                 salute = "resource/o_wins";
                 break;
+            case DRAW:
+                salute = "resource/draw";
+                break;
             default:
                 break;
         }
