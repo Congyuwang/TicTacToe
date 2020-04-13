@@ -25,7 +25,7 @@ class TicTacToeGame implements Game {
      */
     public void play() {
         try {
-            String title = Files.readString(Paths.get("tictactoe/title.txt"));
+            String title = Files.readString(Paths.get("tictactoe/title"));
             System.out.println(title);
         } catch (IOException e) {
             e.printStackTrace();
@@ -42,8 +42,24 @@ class TicTacToeGame implements Game {
             fieldState = field.getFieldState();
             round++;
         } while (fieldState == FieldState.UNFINISHED);
-        System.out.print(field);
-        System.out.println(fieldState);
+        System.out.println(field);
+        String salute = "";
+        switch (fieldState) {
+            case X_WINS:
+                salute = "tictactoe/x_wins";
+                break;
+            case O_WINS:
+                salute = "tictactoe/o_wins";
+                break;
+            default:
+                break;
+        }
+        try {
+            String title = Files.readString(Paths.get(salute));
+            System.out.println(title);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         scanner.close();
     }
 
