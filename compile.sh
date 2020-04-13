@@ -1,0 +1,2 @@
+#!/bin/bash
+javac /Users/congyuwang/IdeaProjects/TicTacToe/tictactoe/Field.java /Users/congyuwang/IdeaProjects/TicTacToe/tictactoe/FieldState.java /Users/congyuwang/IdeaProjects/TicTacToe/tictactoe/Game.java /Users/congyuwang/IdeaProjects/TicTacToe/tictactoe/Main.java /Users/congyuwang/IdeaProjects/TicTacToe/tictactoe/State.java /Users/congyuwang/IdeaProjects/TicTacToe/tictactoe/TicTacToeField.java /Users/congyuwang/IdeaProjects/TicTacToe/tictactoe/TicTacToeGame.java
