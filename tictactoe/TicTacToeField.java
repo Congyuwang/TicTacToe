@@ -5,7 +5,7 @@ class TicTacToeField extends Field {
     /**
      * Explain the following three fields.
      * <p>
-     *     These fields are created for analysing the state of the TicTacToeField.
+     *     These fields are created for analyzing the state of the TicTacToeField.
      *     They are updated only when a new site is changed from EMPTY to X or O.
      * </p>
      * <p>
@@ -132,11 +132,12 @@ class TicTacToeField extends Field {
     public String toString() {
         String bar = this.horizontalBar();
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(' ');
+        stringBuilder.append(spaces(5));
         stringBuilder.append(bar);
 
         int i;
         for(i = 0; i < this.getFieldSize(); ++i) {
+            stringBuilder.append(spaces(4));
             stringBuilder.append(this.getFieldSize() - i);
             stringBuilder.append("| ");
 
@@ -150,9 +151,9 @@ class TicTacToeField extends Field {
             stringBuilder.append('\n');
         }
 
-        stringBuilder.append(' ');
+        stringBuilder.append(spaces(5));
         stringBuilder.append(bar);
-        stringBuilder.append("  ");
+        stringBuilder.append(spaces(6));
 
         for(i = 1; i <= this.getFieldSize(); ++i) {
             stringBuilder.append(' ');
@@ -175,5 +176,13 @@ class TicTacToeField extends Field {
         }
         barChar[2 * getFieldSize() + 3] = '\n';
         return new String(barChar);
+    }
+
+    private String spaces(int l) {
+        char[] spaces = new char[l];
+        for (int i = 0; i < 2 * getFieldSize() + 3; i++) {
+            spaces[i] = ' ';
+        }
+        return new String(spaces);
     }
 }
