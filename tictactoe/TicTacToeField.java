@@ -180,7 +180,7 @@ class TicTacToeField extends Field {
 
     private String spaces(int l) {
         char[] spaces = new char[l];
-        for (int i = 0; i < 2 * getFieldSize() + 3; i++) {
+        for (int i = 0; i < l; i++) {
             spaces[i] = ' ';
         }
         return new String(spaces);
