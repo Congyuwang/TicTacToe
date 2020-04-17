@@ -19,8 +19,11 @@ class TicTacToeField extends Field {
     private final int[] colStates = new int[getFieldSize()];
     private final int[] diagonalStates = new int[2];
 
-    TicTacToeField(int fieldSize) {
+    TicTacToeField(int fieldSize) throws IllegalArgumentException {
         super(fieldSize);
+        if (fieldSize < 1 || fieldSize > 9) {
+            throw new IllegalArgumentException("Only support size between 1 and 9!");
+        }
     }
 
     /**
