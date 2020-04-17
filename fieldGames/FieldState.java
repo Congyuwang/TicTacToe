@@ -1,6 +1,6 @@
-package tictactoe;
+package fieldGames;
 
-enum FieldState {
+public enum FieldState {
     IMPOSSIBLE("Impossible"),
     DRAW("Draw"),
     UNFINISHED("Game not finished"),

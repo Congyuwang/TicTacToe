@@ -1,11 +1,11 @@
-package tictactoe;
+package fieldGames.fiveInARow;
 
 import java.util.Arrays;
+import fieldGames.*;
 
-public class FiveInARowField extends Field {
+class FiveInARowField extends Field {
 
     private final int nInARow;
-    private final char[] alphabets = "abcdefghijklmnopqrstuvwxyz".toCharArray();
     private final int[] rowStatesX = new int[getFieldSize()];
     private final int[] colStatesX = new int[getFieldSize()];
     private final int[] rowStatesO = new int[getFieldSize()];
@@ -24,7 +24,7 @@ public class FiveInARowField extends Field {
     }
 
     @Override
-    void updateFieldState(int xAxis, int yAxis) throws IllegalArgumentException {
+    public void updateFieldState(int xAxis, int yAxis) throws IllegalArgumentException {
         int posLU = getFieldSize() - 1 + xAxis - yAxis;
         int posRU = xAxis + yAxis;
         switch (getSiteState(xAxis, yAxis)) {
@@ -99,8 +99,9 @@ public class FiveInARowField extends Field {
 
         int i;
         for (i = 0; i < this.getFieldSize(); ++i) {
-            stringBuilder.append(spaces(4));
-            stringBuilder.append(alphabets[this.getFieldSize() - i - 1]);
+            stringBuilder.append(spaces(1 + 2 * ((i + this.getFieldSize()) % 2)));
+            stringBuilder.append(String.format("%2d", this.getFieldSize() - i));
+            stringBuilder.append(spaces(2 * ((i + this.getFieldSize() + 1) % 2)));
             stringBuilder.append("| ");
 
             for (int j = 0; j < this.getFieldSize(); ++j) {
@@ -117,12 +118,25 @@ public class FiveInARowField extends Field {
         stringBuilder.append(bar);
         stringBuilder.append(spaces(6));
 
-        for (i = 0; i < this.getFieldSize(); ++i) {
-            stringBuilder.append(' ');
-            stringBuilder.append(alphabets[i]);
+        for (i = 1; i <= this.getFieldSize(); ++i) {
+            if (i % 2 == 1) {
+                stringBuilder.append(String.format("%2d", i));
+            } else {
+                stringBuilder.append(spaces(2));
+            }
         }
-
         stringBuilder.append('\n');
+
+        stringBuilder.append(spaces(6));
+        for (i = 1; i <= this.getFieldSize(); ++i) {
+            if (i % 2 == 1) {
+                stringBuilder.append(spaces(2));
+            } else {
+                stringBuilder.append(String.format("%2d", i));
+            }
+        }
+        stringBuilder.append('\n');
+
         return stringBuilder.toString();
     }
 

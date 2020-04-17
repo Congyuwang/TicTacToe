@@ -1,5 +1,6 @@
-package tictactoe;
+package fieldGames.tictactoe;
 
+import fieldGames.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -7,7 +8,7 @@ import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-class TicTacToeGame implements Game {
+public class TicTacToeGame implements Game {
 
     private Field field;
     private Scanner scanner = new Scanner(System.in);
@@ -16,7 +17,7 @@ class TicTacToeGame implements Game {
      * Initialize the game.
      * @param size size of the game.
      */
-    TicTacToeGame(int size) {
+    public TicTacToeGame(int size) {
         field = new TicTacToeField(size);
     }
 

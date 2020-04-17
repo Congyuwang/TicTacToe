@@ -1,8 +1,8 @@
-package tictactoe;
+package fieldGames;
 
 import java.util.HashMap;
 
-abstract class Field {
+public abstract class Field {
 
     private final int fieldSize;
     private FieldState fieldState;
@@ -47,7 +47,7 @@ abstract class Field {
      * @param xAxis the first coordinate
      * @param yAxis the second coordinate
      */
-    protected void playState(State s, int xAxis, int yAxis) throws IllegalArgumentException {
+    public void playState(State s, int xAxis, int yAxis) throws IllegalArgumentException {
         if (xAxis < 0 || xAxis > getFieldSize() - 1) {
             throw new IllegalArgumentException("Coordinate xAxis exceeds range!");
         }
@@ -61,7 +61,7 @@ abstract class Field {
         updateFieldState(xAxis, yAxis);
     }
 
-    abstract void updateFieldState(int xAxis, int yAxis) throws IllegalArgumentException;
+    abstract protected void updateFieldState(int xAxis, int yAxis) throws IllegalArgumentException;
 
     abstract public String toString();
 
@@ -73,7 +73,7 @@ abstract class Field {
      * @return the state of the site at (x, y)
      * @throws IllegalArgumentException when the coordinate is out of range
      */
-    protected State getSiteState(int xAxis, int yAxis) throws IllegalArgumentException {
+    public State getSiteState(int xAxis, int yAxis) throws IllegalArgumentException {
         if (xAxis < 0 || xAxis > fieldSize - 1) {
             throw new IllegalArgumentException("Coordinate xAxis exceeds range!");
         }
@@ -102,7 +102,7 @@ abstract class Field {
         return numberOfStates.get(s);
     }
 
-    protected int getFieldSize() {
+    public int getFieldSize() {
         return fieldSize;
     }
 
@@ -110,7 +110,7 @@ abstract class Field {
         this.fieldState = fieldState;
     }
 
-    protected FieldState getFieldState() {
+    public FieldState getFieldState() {
         return fieldState;
     }
 

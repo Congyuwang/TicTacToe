@@ -1,4 +1,4 @@
-package tictactoe;
+package fieldGames;
 
 public interface Game {
     void play();

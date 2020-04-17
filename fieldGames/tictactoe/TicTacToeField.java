@@ -1,4 +1,6 @@
-package tictactoe;
+package fieldGames.tictactoe;
+
+import fieldGames.*;
 
 class TicTacToeField extends Field {
 
@@ -43,7 +45,7 @@ class TicTacToeField extends Field {
      * @param xAxis the first coordinate
      * @param yAxis the second coordinate
      */
-    void updateFieldState(int xAxis, int yAxis) {
+    public void updateFieldState(int xAxis, int yAxis) {
 
         /*
          * Update rowStates, colStates, diagonalStates.

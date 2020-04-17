@@ -1,7 +1,7 @@
-package tictactoe;
+package fieldGames;
 
-enum State {
-    EMPTY(" "),
+public enum State {
+    EMPTY("+"),
     X("X"),
     O("O");
 
