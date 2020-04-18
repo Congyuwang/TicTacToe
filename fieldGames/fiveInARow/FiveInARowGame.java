@@ -87,6 +87,7 @@ public class FiveInARowGame implements Game {
                     else {
                         int[] step = history.pop();
                         field.playState(State.EMPTY, step[0], step[1]);
+                        System.out.println(field);
                         continue;
                     }
                 }
