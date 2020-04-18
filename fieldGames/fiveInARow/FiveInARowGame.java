@@ -79,7 +79,7 @@ public class FiveInARowGame implements Game {
             while (true) {
                 System.out.printf("Enter the coordinates (%s): ", s.toString());
                 String input = scanner.nextLine();
-                if (input == "regret") {
+                if (input.equals("regret")) {
                     if (history.isEmpty()) {
                         System.out.println("No more steps to regret!");
                         continue;
