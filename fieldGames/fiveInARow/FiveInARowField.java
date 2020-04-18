@@ -85,7 +85,7 @@ class FiveInARowField extends Field {
         for (int lu = 0; lu < getFieldSize() * 2 - 1; lu++) {
             int dX = 0;
             int dO = 0;
-            for (int yAxis = Math.min(lu, 10), xAxis = lu - yAxis;
+            for (int yAxis = Math.min(lu, getFieldSize() - 1), xAxis = lu - yAxis;
                  xAxis < getFieldSize() && yAxis >= 0; xAxis++, yAxis--) {
                 switch (getSiteState(xAxis, yAxis)) {
                     case X:
@@ -115,7 +115,7 @@ class FiveInARowField extends Field {
         for (int ru = 0; ru < getFieldSize() * 2 - 1; ru++) {
             int dX = 0;
             int dO = 0;
-            for (int xAxis = Math.min(10, ru), yAxis = Math.max(10, ru - xAxis);
+            for (int xAxis = Math.max(0, ru - getFieldSize()), yAxis = Math.max(0, getFieldSize() - 1 - ru);
                  xAxis < getFieldSize() && yAxis < getFieldSize(); xAxis++, yAxis++) {
                 switch (getSiteState(xAxis, yAxis)) {
                     case X:
