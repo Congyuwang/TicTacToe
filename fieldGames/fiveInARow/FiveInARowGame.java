@@ -7,12 +7,13 @@ import java.nio.file.Paths;
 import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+import java.util.Stack;
 
 public class FiveInARowGame implements Game {
 
     private final Field field;
     private final Scanner scanner = new Scanner(System.in);
-
+    private Stack<int[]> history = new Stack<>();
     /**
      * provides game FiveInARow
      * @param size size of the field
@@ -78,6 +79,17 @@ public class FiveInARowGame implements Game {
             while (true) {
                 System.out.printf("Enter the coordinates (%s): ", s.toString());
                 String input = scanner.nextLine();
+                if (input == "regret") {
+                    if (history.isEmpty()) {
+                        System.out.println("No more steps to regret!");
+                        continue;
+                    }
+                    else {
+                        int[] step = history.pop();
+                        field.playState(State.EMPTY, step[0], step[1]);
+                        continue;
+                    }
+                }
                 Scanner scanInts = new Scanner(input);
                 try {
                     x = scanInts.nextInt();
@@ -96,6 +108,7 @@ public class FiveInARowGame implements Game {
                 checkState = field.getSiteState(field.getFieldSize() - y, x - 1);
                 if (checkState == State.EMPTY) {
                     field.playState(s, field.getFieldSize() - y, x - 1);
+                    history.add(new int[] {field.getFieldSize() - y, x - 1});
                     break;
                 } else {
                     System.out.println("This cell is occupied! Choose another one!");
