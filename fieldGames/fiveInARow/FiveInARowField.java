@@ -197,7 +197,9 @@ class FiveInARowField extends Field {
         for (i = 0; i < this.getFieldSize(); ++i) {
             stringBuilder.append(spaces(1 + 2 * ((i + this.getFieldSize()) % 2)));
             stringBuilder.append(String.format("%2d", this.getFieldSize() - i));
-            stringBuilder.append(spaces(2 * ((i + this.getFieldSize() + 1) % 2)));
+            if ((i + this.getFieldSize() + 1) % 2 == 1) {
+                stringBuilder.append("--");
+            }
             stringBuilder.append("| ");
 
             for (int j = 0; j < this.getFieldSize(); ++j) {
@@ -218,7 +220,7 @@ class FiveInARowField extends Field {
             if (i % 2 == 1) {
                 stringBuilder.append(String.format("%2d", i));
             } else {
-                stringBuilder.append(spaces(2));
+                stringBuilder.append(" |");
             }
         }
         stringBuilder.append('\n');
