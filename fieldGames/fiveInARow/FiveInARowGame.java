@@ -44,8 +44,14 @@ public class FiveInARowGame implements Game {
                 status = receiveInput(State.O);
             }
             fieldState = field.getFieldState();
-            if (status == 0) {
-                round++;
+            switch (status) {
+                case 0: case 1:
+                    round++;
+                    break;
+                case -1:
+                    return;
+                default:
+                    break;
             }
         } while (fieldState == FieldState.UNFINISHED);
         System.out.println(field);
@@ -74,7 +80,10 @@ public class FiveInARowGame implements Game {
 
     /**
      * receive input and update the field to {@code State s}.
-     * @return return 0 if normal, -1 if no more step to regret.
+     * Input two integers as coordinates for normal states.
+     * Input {@code exit} or {@code ^D} for exiting the game.
+     * Input {@code regret} for regretting steps.
+     * @return return 0 if normal, 1 if regret, 2 if no more step to regret, -1 if exit.
      */
     private int receiveInput(State s) {
         while (true) {
@@ -82,30 +91,35 @@ public class FiveInARowGame implements Game {
             int y;
             while (true) {
                 System.out.printf("Enter the coordinates (%s): ", s.toString());
-                String input = scanner.nextLine();
-                if (input.equals("regret")) {
-                    if (history.isEmpty()) {
-                        System.out.println("No more steps to regret!");
+                try {
+                    String input = scanner.nextLine();
+                    if (input.equals("regret")) {
+                        if (history.isEmpty()) {
+                            System.out.println("No more steps to regret!");
+                            return 2;
+                        } else {
+                            int[] step = history.pop();
+                            field.playState(State.EMPTY, step[0], step[1]);
+                            return 0;
+                        }
+                    } else if (input.equals("exit")) {
                         return -1;
                     }
-                    else {
-                        int[] step = history.pop();
-                        field.playState(State.EMPTY, step[0], step[1]);
-                        return 0;
+                    Scanner scanInts = new Scanner(input);
+                    try {
+                        x = scanInts.nextInt();
+                        y = scanInts.nextInt();
+                        scanInts.close();
+                        break;
+                    } catch (InputMismatchException e1) {
+                        System.out.println("You should enter numbers!");
+                    } catch (NoSuchElementException e2) {
+                        System.out.println("You should enter two numbers!");
                     }
-                }
-                Scanner scanInts = new Scanner(input);
-                try {
-                    x = scanInts.nextInt();
-                    y = scanInts.nextInt();
                     scanInts.close();
-                    break;
-                } catch (InputMismatchException e1) {
-                    System.out.println("You should enter numbers!");
-                } catch (NoSuchElementException e2) {
-                    System.out.println("You should enter two numbers!");
+                } catch (NoSuchElementException e) {
+                    return -1;
                 }
-                scanInts.close();
             }
             State checkState;
             try {
