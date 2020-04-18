@@ -1,5 +1,9 @@
 #!/bin/bash
 
-javac -d /Users/congyuwang/IdeaProjects/TicTacToe/out /Users/congyuwang/IdeaProjects/TicTacToe/tictactoe/Field.java /Users/congyuwang/IdeaProjects/TicTacToe/tictactoe/FieldState.java /Users/congyuwang/IdeaProjects/TicTacToe/tictactoe/Game.java /Users/congyuwang/IdeaProjects/TicTacToe/tictactoe/Main.java /Users/congyuwang/IdeaProjects/TicTacToe/tictactoe/State.java /Users/congyuwang/IdeaProjects/TicTacToe/tictactoe/TicTacToeField.java /Users/congyuwang/IdeaProjects/TicTacToe/tictactoe/TicTacToeGame.java
+BASEDIR=$(dirname "$0")
 
-cp -a /Users/congyuwang/IdeaProjects/TicTacToe/resource /Users/congyuwang/IdeaProjects/TicTacToe/out/
+cd $BASEDIR || exit
+
+javac -d out fieldGames/Field.java fieldGames/FieldState.java fieldGames/Game.java fieldGames/fiveInARowMain.java fieldGames/ticTacToeMain.java fieldGames/State.java fieldGames/tictactoe/TicTacToeField.java fieldGames/tictactoe/TicTacToeGame.java fieldGames/fiveInARow/FiveInARowField.java fieldGames/fiveInARow/FiveInARowGame.java
+
+cp -a resource out/

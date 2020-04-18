@@ -6,14 +6,6 @@ import fieldGames.*;
 class FiveInARowField extends Field {
 
     private final int nInARow;
-    private final int[] rowStatesX = new int[getFieldSize()];
-    private final int[] colStatesX = new int[getFieldSize()];
-    private final int[] rowStatesO = new int[getFieldSize()];
-    private final int[] colStatesO = new int[getFieldSize()];
-    private final int[] diagonalStatesLUX = new int[getFieldSize() * 2 - 1];
-    private final int[] diagonalStatesRUX = new int[getFieldSize() * 2 - 1];
-    private final int[] diagonalStatesLUO = new int[getFieldSize() * 2 - 1];
-    private final int[] diagonalStatesRUO = new int[getFieldSize() * 2 - 1];
 
     FiveInARowField(int fieldSize, int nInARow) {
         super(fieldSize);
@@ -24,24 +16,129 @@ class FiveInARowField extends Field {
     }
 
     @Override
-    public void updateFieldState(int xAxis, int yAxis) throws IllegalArgumentException {
-        int posLU = getFieldSize() - 1 + xAxis - yAxis;
-        int posRU = xAxis + yAxis;
-        switch (getSiteState(xAxis, yAxis)) {
-            case X:
-                rowStatesX[xAxis]++;
-                colStatesX[yAxis]++;
-                diagonalStatesLUX[posLU]++;
-                diagonalStatesRUX[posRU]++;
-                break;
-            case O:
-                rowStatesO[xAxis]++;
-                colStatesO[yAxis]++;
-                diagonalStatesLUO[posLU]++;
-                diagonalStatesRUO[posRU]++;
-                break;
-            default:
-                break;
+    public void updateFieldState(int a, int b) throws IllegalArgumentException {
+        int[] rowStatesX = new int[getFieldSize()];
+        int[] colStatesX = new int[getFieldSize()];
+        int[] rowStatesO = new int[getFieldSize()];
+        int[] colStatesO = new int[getFieldSize()];
+        int[] diagonalStatesLUX = new int[getFieldSize() * 2 - 1];
+        int[] diagonalStatesRUX = new int[getFieldSize() * 2 - 1];
+        int[] diagonalStatesLUO = new int[getFieldSize() * 2 - 1];
+        int[] diagonalStatesRUO = new int[getFieldSize() * 2 - 1];
+
+        for (int xAxis = 0; xAxis < getFieldSize(); xAxis++) {
+            int rowX = 0;
+            int rowO = 0;
+            for (int yAxis = 0; yAxis < getFieldSize(); yAxis++) {
+                switch (getSiteState(xAxis, yAxis)) {
+                    case X:
+                        rowO = 0;
+                        rowX++;
+                        break;
+                    case O:
+                        rowO++;
+                        rowX = 0;
+                        break;
+                    case EMPTY:
+                        rowO = 0;
+                        rowX = 0;
+                    default:
+                        break;
+                }
+                if (rowX > rowStatesX[xAxis]) {
+                    rowStatesX[xAxis] = rowX;
+                }
+                if (rowO > rowStatesO[xAxis]) {
+                    rowStatesO[xAxis] = rowO;
+                }
+            }
+        }
+
+        for (int yAxis = 0; yAxis < getFieldSize(); yAxis++) {
+            int colX = 0;
+            int colO = 0;
+            for (int xAxis = 0; xAxis < getFieldSize(); xAxis++) {
+                switch (getSiteState(xAxis, yAxis)) {
+                    case X:
+                        colO = 0;
+                        colX++;
+                        break;
+                    case O:
+                        colO++;
+                        colX = 0;
+                        break;
+                    case EMPTY:
+                        colO = 0;
+                        colX = 0;
+                    default:
+                        break;
+                }
+                if (colX > colStatesX[yAxis]) {
+                    colStatesX[yAxis] = colX;
+                }
+                if (colO > colStatesO[yAxis]) {
+                    colStatesO[yAxis] = colO;
+                }
+            }
+        }
+
+        for (int lu = 0; lu < getFieldSize() * 2 - 1; lu++) {
+            int dX = 0;
+            int dO = 0;
+            for (int yAxis = Math.min(lu, 10), xAxis = lu - yAxis;
+                 xAxis < getFieldSize() && yAxis >= 0; xAxis++, yAxis--) {
+                switch (getSiteState(xAxis, yAxis)) {
+                    case X:
+                        dX++;
+                        dO = 0;
+                        break;
+                    case O:
+                        dX = 0;
+                        dO++;
+                        break;
+                    case EMPTY:
+                        dX = 0;
+                        dO = 0;
+                        break;
+                    default:
+                        break;
+                }
+                if (dX > diagonalStatesLUX[lu]) {
+                    diagonalStatesLUX[lu] = dX;
+                }
+                if (dO > diagonalStatesLUO[lu]) {
+                    diagonalStatesLUO[lu] = dO;
+                }
+            }
+        }
+
+        for (int ru = 0; ru < getFieldSize() * 2 - 1; ru++) {
+            int dX = 0;
+            int dO = 0;
+            for (int xAxis = Math.min(10, ru), yAxis = Math.max(10, ru - xAxis);
+                 xAxis < getFieldSize() && yAxis < getFieldSize(); xAxis++, yAxis++) {
+                switch (getSiteState(xAxis, yAxis)) {
+                    case X:
+                        dX++;
+                        dO = 0;
+                        break;
+                    case O:
+                        dX = 0;
+                        dO++;
+                        break;
+                    case EMPTY:
+                        dX = 0;
+                        dO = 0;
+                    default:
+                        break;
+                }
+                if (dX > diagonalStatesRUX[ru]) {
+                    diagonalStatesRUX[ru] = dX;
+                }
+                if (dO > diagonalStatesRUO[ru]) {
+                    diagonalStatesRUO[ru] = dO;
+                }
+            }
         }
 
         /*
@@ -50,7 +147,6 @@ class FiveInARowField extends Field {
         boolean xWins = false;
         boolean oWins = false;
 
-        // if the diagonal is all X or all Y, X or Y wins.
         if (max(diagonalStatesLUX) >= nInARow || max(diagonalStatesRUX) >= nInARow) {
             xWins = true;
         }

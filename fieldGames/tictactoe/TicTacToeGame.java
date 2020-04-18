@@ -26,7 +26,7 @@ public class TicTacToeGame implements Game {
      */
     public void play() {
         try {
-            String title = Files.readString(Paths.get("resource/title"));
+            String title = Files.readString(Paths.get("resource/tictactoe_title"));
             System.out.println(title);
         } catch (IOException e) {
             e.printStackTrace();

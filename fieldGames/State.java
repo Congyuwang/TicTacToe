@@ -1,7 +1,7 @@
 package fieldGames;
 
 public enum State {
-    EMPTY("+"),
+    EMPTY("·"),
     X("X"),
     O("O");
 
