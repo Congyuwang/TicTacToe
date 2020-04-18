@@ -35,7 +35,7 @@ public class FiveInARowGame implements Game {
         FieldState fieldState;
         int round = 0;
         do {
-            System.out.print(field);
+            System.out.println(field);
             if (round % 2 == 0) {
                 receiveInput(State.X);
             } else {
