@@ -37,13 +37,16 @@ public class FiveInARowGame implements Game {
         int round = 0;
         do {
             System.out.println(field);
+            int status = 0;
             if (round % 2 == 0) {
-                receiveInput(State.X);
+                status = receiveInput(State.X);
             } else {
-                receiveInput(State.O);
+                status = receiveInput(State.O);
             }
             fieldState = field.getFieldState();
-            round++;
+            if (status == 0) {
+                round++;
+            }
         } while (fieldState == FieldState.UNFINISHED);
         System.out.println(field);
         String salute = "";
@@ -71,8 +74,9 @@ public class FiveInARowGame implements Game {
 
     /**
      * receive input and update the field to {@code State s}.
+     * @return return 0 if normal, -1 if no more step to regret.
      */
-    private void receiveInput(State s) {
+    private int receiveInput(State s) {
         while (true) {
             int x;
             int y;
@@ -82,13 +86,12 @@ public class FiveInARowGame implements Game {
                 if (input.equals("regret")) {
                     if (history.isEmpty()) {
                         System.out.println("No more steps to regret!");
-                        continue;
+                        return -1;
                     }
                     else {
                         int[] step = history.pop();
                         field.playState(State.EMPTY, step[0], step[1]);
-                        System.out.println(field);
-                        continue;
+                        return 0;
                     }
                 }
                 Scanner scanInts = new Scanner(input);
@@ -110,7 +113,7 @@ public class FiveInARowGame implements Game {
                 if (checkState == State.EMPTY) {
                     field.playState(s, field.getFieldSize() - y, x - 1);
                     history.add(new int[] {field.getFieldSize() - y, x - 1});
-                    break;
+                    return 0;
                 } else {
                     System.out.println("This cell is occupied! Choose another one!");
                 }
