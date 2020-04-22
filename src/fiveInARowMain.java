@@ -1,6 +1,5 @@
-package fieldGames;
-
 import fieldGames.fiveInARow.*;
+import fieldGames.*;
 
 public class fiveInARowMain {
     public static void main(String[] args) {
