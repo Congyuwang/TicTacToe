@@ -1,3 +1,3 @@
 #!/bin/bash
-cd /Users/congyuwang/IdeaProjects/TicTacToe/out || exit
+cd /Users/congyuwang/JavaProjects/TicTacToe/out || exit
 java fieldGames.ticTacToeMain
